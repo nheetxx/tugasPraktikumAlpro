@@ -1,0 +1,20 @@
+saldo udin = 200.000
+
+dalam toko:
+3 buku catatan tebal (25k/pcs)
+2 pulpen (8k/pcs)
+1 flashdisk (75k)
+promo potongan 10% untuk total belanjaan
+setelah diskon, kena PPN 11% awokwok
+udin bayar 200k
+
+hitung:
+a. total harga buku
+b. total harga pulpen
+c. total harga flashdisk
+d. total seluruh barang sebelum diskon
+e. besarnya diskon 10%
+f. harga setelah diskon
+g. besarnya pajak 11% AOWKWOKWO
+h. total setelah kena pajak
+i. kembalian

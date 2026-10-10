@@ -1,0 +1,9 @@
+jarak 100km
+konsumsiBBM 40km/l
+sisaBbmSekarang 1,5l
+hargaBBM 10k/l
+
+jarak pp
+kebutuhan BBM
+jumlah BBM yg harus dibeli
+biaya beli BBM
