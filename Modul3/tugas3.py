@@ -6,7 +6,7 @@ kategoriC = 0
 kategoriD = 0
 kategoriE = 0
 naTertinggi = 0
-naTerendah = 0
+naTerendah = 100
 namaTertinggi = ""
 namaTerendah = ""
 
@@ -23,6 +23,9 @@ for i in range(1, 11):
     uts = nilaiUts * (30/100)
     uas = nilaiUas * (40/100)
     nilaiAkhir = tugas + uts + uas
+    
+    # nilaiAkhir = (nilaiTugas * 0.3) + (nilaiUts * 0.3) + (nilaiUas * 0.4)
+    
     totalNilai += nilaiAkhir
 
     if nilaiAkhir >= 85:

@@ -14,10 +14,10 @@
 # while (kondisi):
 #     statemen
 
-# x = "Zayana"
+# x = "Wulan"
 # while x:
 #     print(x)
-#     x = x[2:]
+#     x = x[1:]
 
 
 # a = 0
@@ -33,7 +33,6 @@
 #         break
 #     print(x)
 #     x = x + 1
-
 # print(x)
 
 
@@ -64,56 +63,54 @@
 # contoh 1
 
 
-a = 1
-while a < 5:
-    print(a)
-    a += 1
-    if a == 3:
-        break
-    print(a)
-
-while a == 3:
-    print(4)
-    a -= 1
-    if a < 2:
-        break
-
-print(a)
-
-
-# contoh 2
-# a = 0
-# while a < 10:
-#     a += 1
-#     if a % 2:
-#         print(f"{a} bilangan ganjil")
-#     else:
-#         continue
-
-# contoh 3
 # a = 1
-# while a < 10:
+# while a < 5:
 #     print(a)
 #     a += 1
-#     if a > 6:
+#     if a == 3:
+#         break
+#     print(a)
+
+# while a == 3:
+#     print(4)
+#     a -= 1
+#     if a < 2:
 #         break
 
-# contoh 4
-# while 1:
-#     print('perulangan tiada batas, tekan ctrl + c untuk berhenti')
-
-# contoh 5
-# for a in range(1, 11):
-#     if a % 2 == 0:
-#         print(a)
-
-# contoh 6
-# for a in range(1, 11):
-#     if a == 5:
-#         continue
-#     print(a)
+# print(a)
 
 
+# # contoh 2
+# # a = 0
+# # while a < 10:
+# #     a += 1
+# #     if a % 2:
+# #         print(f"{a} bilangan ganjil")
+# #     else:
+# #         continue
+
+# # contoh 3
+# # a = 1
+# # while a < 10:
+# #     print(a)
+# #     a += 1
+# #     if a > 6:
+# #         break
+
+# # contoh 4
+# # while 1:
+# #     print('perulangan tiada batas, tekan ctrl + c untuk berhenti')
+
+# # contoh 5
+# # for a in range(1, 11):
+# #     if a % 2 == 0:
+# #         print(a)
+
+# # contoh 6
+# # for a in range(1, 11):
+# #     if a == 5:
+# #         continue
+# #     print(a)
 
 
 
@@ -125,24 +122,50 @@ print(a)
 
 
 
-# for i in range(2, 20):
-#     if i % 2 == 0:
-#         print(i)
 
 
-# for i in range(2, 21, 2):
-#     print(i)
+# # for i in range(2, 20):
+# #     if i % 2 == 0:
+# #         print(i)
 
 
-total = 0
-tugas = 0
+# # for i in range(2, 21, 2):
+# #     print(i)
 
-while True:
-    nilai = int(input("Nilai: "))
-    if nilai == -99:
-        break
-    total = total + nilai
-    tugas = tugas + 1
+
+# total = 0
+# tugas = 0
+
+# while True:
+#     nilai = int(input("Nilai: "))
+#     if nilai == -99:
+#         break
+#     total = total + nilai
+#     tugas = tugas + 1
     
-print(f"Total nilai: {total}")
-print(f"Jumlah tugas: {tugas}")
+# print(f"Total nilai: {total}")
+# print(f"Jumlah tugas: {tugas}")
+
+
+
+# x = 1
+# while x < 5:
+#     if x == 3:
+#         break
+#     print(x)
+#     x = x + 1
+# else:
+#     print("Selesai")
+    
+# n = 10
+# while n:
+#     n = n - 1
+#     if n % 2 != 0:
+#         continue
+#     print(n)
+    
+# for i in range(1, 6):
+#     if i == 3:
+#         pass
+#     else:
+#         print(i)
