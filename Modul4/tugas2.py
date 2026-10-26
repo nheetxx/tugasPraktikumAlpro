@@ -6,10 +6,12 @@ for i in range(1, 8):
     gajiHarian = 0
     upahLembur = 0
     
-    if i == 1:
-        print(f"--- Hari pertama")
-    else:
-        print(f"--- Hari ke-{i}")
+    
+    print("Hari pertama") if i == 1 else print(f"Hari ke-{i}")
+    # if i == 1:
+    #     print(f"--- Hari pertama")
+    # else:
+    #     print(f"--- Hari ke-{i}")
 
     jamLembur = int(input("Masukkan jam lembur: "))
     while jamLembur < 0 or jamLembur == 5 or jamLembur == 7:
@@ -18,8 +20,8 @@ for i in range(1, 8):
 
 
     while True:
-        shiftMalam = input("Apakah pekerja shift malam?(Y/N): ")
-        if shiftMalam == "N" or shiftMalam == "n":
+        shiftMalam = input("Apakah pekerja shift malam?(Y/N): ").lower
+        if shiftMalam == "n":
             shiftMlm = False
             break
         elif shiftMalam == "Y" or shiftMalam == "y":
