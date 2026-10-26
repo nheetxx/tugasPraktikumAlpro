@@ -21,12 +21,12 @@ while True:
         for g in range(jarak):
             baris = baris + " "
 
-        # k = i
-        k = n - i + 1
-        for s in range(i - 1):
-            baris = baris + " "
-        # for s in range(2 * (n - i)):
+        # k = n - i + 1
+        # for s in range(i - 1):
         #     baris = baris + " "
+        k = i
+        for s in range(2 * (n - i)):
+            baris = baris + " "
         for a in range(k, 0, -1):
             baris = baris + str(a % 10)
         for b in range(2, k + 1):
