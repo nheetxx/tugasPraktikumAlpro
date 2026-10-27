@@ -13,23 +13,7 @@ while True:
             baris = baris + " "
         for a in range(i, 0, -1):
             baris = baris + str(a % 10)
-
-        # for b in range(2, i + 1):
-        #     baris = baris + str(b % 10)
-        # for s in range(n - i):
-        #     baris = baris + " "
-
-        # for g in range(jarak):
-        #     baris = baris + " "
-        
-        # k = n - i + 1
-        # for s in range(i - 1):
-        #     baris = baris + " "
-        # for a in range(k, 0, -1):
-        #     baris = baris + str(a % 10)
-        # for b in range(2, k + 1):
-        #     baris = baris + str(b % 10)
-
+            
         print(baris)
 
     break
