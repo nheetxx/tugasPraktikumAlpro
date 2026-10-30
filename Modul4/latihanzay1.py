@@ -1,7 +1,7 @@
 jumlahBaris = int(input("Jumlah baris: ")) #input 5
 jumlahLampu = int(input("Jumlah lampu pada setiap baris: "))
 
-nomorLampu = 1
+nomorLampu = 4
 
 for baris in range(1, jumlahBaris+1):
     print("Baris")

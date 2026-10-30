@@ -36,7 +36,7 @@
 # def cetak_string():
 #     print("Ini dalah fungsi yang mencetak string")
 #     print("Silahkan Masukkan data")
-    
+
 # cetak_string()
 # masukkan_data()
 
@@ -46,11 +46,24 @@
 #     c = a * b
 #     return c
 
+# angka1 = int(input("angka 1: "))
+# angka2 = int(input("angka 2: "))
+
+# hasil = perkalian(angka1, angka2)
+
+# print(f"hasil {angka1} x {angka2} = {hasil}")
 # print(perkalian(5, 10))
 
 
 
-# f = lambda x, y, z: x + y + y
+# f = lambda x, y, z: x + y + z
+
+# x = int(input("x: "))
+# y = int(input("y: "))
+# z = int(input("z: "))
+
+# print(f"Hasil dari lambda: {f(x, y, z)}")
+
 # print(f(10, 20, 30))
 
 
@@ -60,11 +73,11 @@
 
 
 
-# def contohScope(x):
-#     x = 10
-#     print("Nilai X di dalam fungsi, x = ", x)
+def contohScope(x):
+    x = 10
+    print("Nilai x di dalam fungsi, x = ", x)
     
-# x = 30
-# print("Nilai x di luar fungsi, x = ", x)
+x = 30
+print("Nilai x di luar fungsi, x = ", x)
 
-# contohScope(x)
+contohScope(x)

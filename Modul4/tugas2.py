@@ -6,12 +6,11 @@ for i in range(1, 8):
     gajiHarian = 0
     upahLembur = 0
     
-    
-    print("Hari pertama") if i == 1 else print(f"Hari ke-{i}")
-    # if i == 1:
-    #     print(f"--- Hari pertama")
-    # else:
-    #     print(f"--- Hari ke-{i}")
+    # print("Hari pertama") if i == 1 else print(f"Hari ke-{i}")
+    if i == 1:
+        print(f"--- Hari pertama")
+    else:
+        print(f"--- Hari ke-{i}")
 
     jamLembur = int(input("Masukkan jam lembur: "))
     while jamLembur < 0 or jamLembur == 5 or jamLembur == 7:
