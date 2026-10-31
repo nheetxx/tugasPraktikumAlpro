@@ -11,4 +11,4 @@ def diskon(total):
 total = hitungTotal(40000, 3)
 totalAkhir = diskon(total)
 
-print(f"Total = {int(totalAkhir)}")
+print(f"Total = {totalAkhir}")

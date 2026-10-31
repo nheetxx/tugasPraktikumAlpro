@@ -72,12 +72,12 @@
 # print(z("ZOO"))
 
 
-
-def contohScope(x):
-    x = 10
-    print("Nilai x di dalam fungsi, x = ", x)
+# def contohScope(x):
+#     x = 10
+#     print("Nilai x di dalam fungsi, x = ", x)
     
-x = 30
-print("Nilai x di luar fungsi, x = ", x)
+# x = 30
+# print("Nilai x di luar fungsi, x = ", x)
 
-contohScope(x)
+# contohScope(x)
+

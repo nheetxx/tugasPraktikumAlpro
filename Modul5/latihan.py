@@ -1,6 +1,8 @@
 def test(kurung):
     print(f"Ini test, ini kurung {kurung}")
     
+            
+    
 test("nopal\n")
 
 def kali(a, b):
