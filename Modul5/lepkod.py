@@ -19,17 +19,33 @@ print("-" * 30)
 
 def main():
     while True:
-        angkaSatu = int(input("Masukkan angka pertama                  : "))
+        try:
+            angkaSatu = int(input("Masukkan angka pertama                  : "))
+        except ValueError:
+            print("Input harus berupa angka! silahkan masukkan angka yang benar\n")
+            continue
+        
         sistem = input("Masukkan sistem operasi (+, -, x, :)    : ")
-        angkaDua = int(input("Masukkan angka kedua                    : "))
+        
+        try:
+            angkaDua = int(input("Masukkan angka kedua                    : "))
+        except ValueError:
+            print("Input harus berupa angka! silahkan masukkan angka yang benar\n")
+            continue
+        
         print("-" * 30)
 
         if sistem != "+" and sistem != "-" and sistem != "x" and sistem != ":":
             print("Operasi nguawor! silahkan masukkan operasi yang benar\n")
             continue
 
+        if sistem == ":" and angkaDua == 0:
+            print("Tidak bisa membagi dengan nol!\n")
+            continue
+
         output(angkaSatu, angkaDua, sistem)
         continueKalkulator = input("Apakah anda ingin melanjutkan kalkulator? (y/n) ")
         if continueKalkulator.lower() != "y":
             break
+
 main()
