@@ -22,7 +22,8 @@ def output(nama, tugas, uts, uas):
     print(f"Grade       : {grade}")
     print(f"Status      : {status(grade)}")
     print("-" * 30)
-def start():
+
+def main():
     nomor = 2
     while True:
         nama = input("Masukkan nama : ")
@@ -40,4 +41,4 @@ def start():
         else:
             nomor += 1
 
-start()
+main()

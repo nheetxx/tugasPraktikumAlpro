@@ -7,11 +7,10 @@ def palindrom(kata):
 
 def main():
     while True:
-        kata = str(input("Masukkan kata : "))
+        kata = str(input("Masukkan kata : (Input 0 untuk berhenti)"))
         if kata == "0":
             break
         print(f"{kata} adalah palindrom") if palindrom(kata) else print(f"{kata} bukan palindrom")
         print("-" * 20)
         
-print("Input 0 untuk berhenti")
 main()
