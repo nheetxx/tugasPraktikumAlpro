@@ -44,8 +44,16 @@ def main():
             continue
 
         output(angkaSatu, angkaDua, sistem)
-        continueKalkulator = input("Apakah anda ingin melanjutkan kalkulator? (y/n) ")
-        if continueKalkulator.lower() != "y":
-            break
+        
+        while True:
+            continueKalkulator = input("Apakah anda ingin melanjutkan kalkulator? (y/n) ")
+            if continueKalkulator.lower() == "y":
+                break
+            elif continueKalkulator.lower() == "n":
+                print(f"Arigatouuuuu, sampai jumpa lagi! >///<")
+                exit()
+            else:
+                print(f"Input {continueKalkulator} nguawor! silahkan masukkan 'y' atau 'n'")
+                continue
 
 main()
