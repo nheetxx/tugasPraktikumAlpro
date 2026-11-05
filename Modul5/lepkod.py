@@ -46,10 +46,10 @@ def main():
         output(angkaSatu, angkaDua, sistem)
         
         while True:
-            continueKalkulator = input("Apakah anda ingin melanjutkan kalkulator? (y/n) ")
-            if continueKalkulator.lower() == "y":
+            continueKalkulator = input("Apakah anda ingin melanjutkan kalkulator? (y/n) ").lower()
+            if continueKalkulator == "y":
                 break
-            elif continueKalkulator.lower() == "n":
+            elif continueKalkulator == "n":
                 print(f"Arigatouuuuu, sampai jumpa lagi! >///<")
                 exit()
             else:
