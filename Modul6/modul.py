@@ -1,3 +1,9 @@
+nama = ["naufal", "maple", "aqua"]
+nama2 = ["shiroko", "ruri"]
+print("naufal" in nama)
+
+
+
 # list = [1, 2, 3, 'mangga']
 # list.append('durian')
 # print(list)
