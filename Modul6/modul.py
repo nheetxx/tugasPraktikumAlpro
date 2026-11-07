@@ -1,6 +1,6 @@
-nama = ["naufal", "maple", "aqua"]
-nama2 = ["shiroko", "ruri"]
-print("naufal" in nama)
+# nama = ["naufal", "maple", "aqua"]
+# nama2 = ["shiroko", "ruri"]
+# print("naufal" in nama)
 
 
 
