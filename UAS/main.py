@@ -7,6 +7,7 @@ daftarEkskul = [
     ("PMR", 20000, 5, "Sabtu"),
 ]
 
+
 biayaAdmin = 10000
 maksEkskul = 3
 
@@ -303,3 +304,4 @@ while True:
     else:
         print("Terima kasih, sampai jumpa")
         break
+
