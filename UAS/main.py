@@ -15,9 +15,18 @@ hariList = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
 biayaAdmin = 10000
 maksEkskul = 3
 passwordAdmin = "admin123"
+lebar = 70
+nisTerakhir = 10005
 
-siswa = {}
+siswa = {
+    "10001": {"nama": "Shiroko Sunaookami ", "kelas": 11, "ekskul": {}},
+    "10002": {"nama": "Hoshino Takanashi ", "kelas": 12, "ekskul": {}},
+    "10003": {"nama": "Nonomi Izayoi", "kelas": 11, "ekskul": {}},
+    "10004": {"nama": "Kuromi Serika", "kelas": 11, "ekskul": {}},
+    "10005": {"nama": "Ayane Okusora ", "kelas": 11, "ekskul": {}},
+}
 riwayat = []
+pengajuan = []
 
 
 def cekAngka(pesan, kecil, besar):
@@ -40,12 +49,18 @@ def inputNis():
         print("NIS harus 5 digit angka")
 
 
-def inputTeks(pesan):
+def inputTeks(pesan, maksimal):
     while True:
         teks = input(pesan).strip()
-        if teks != "":
+        if teks != "" and len(teks) <= maksimal:
             return teks
-        print("Tidak boleh kosong")
+        print("Tidak boleh kosong dan maksimal", maksimal, "karakter")
+
+
+def buatNis():
+    global nisTerakhir
+    nisTerakhir += 1
+    return str(nisTerakhir)
 
 
 def tanggal():
@@ -57,9 +72,9 @@ def tanggalJam():
 
 
 def ambilBiaya(namaEkskul):
-    for e in daftarEkskul:
-        if e[0] == namaEkskul:
-            return e[1]
+    for i in daftarEkskul:
+        if i[0] == namaEkskul:
+            return i[1]
 
 
 def hitungPeserta(namaEkskul):
@@ -70,42 +85,119 @@ def hitungPeserta(namaEkskul):
     return jumlah
 
 
+def hitungDiskon(jumlah):
+    if jumlah == 1:
+        return 0
+    elif jumlah == 2:
+        return 10
+    else:
+        return 15
+
+
+def hitungBayar(totalBiaya, jumlah):
+    persen = hitungDiskon(jumlah)
+    potongan = totalBiaya * persen // 100
+    total = totalBiaya - potongan + biayaAdmin
+    return persen, potongan, total
+
+
+def jumlahMenunggu():
+    jumlah = 0
+    for i in pengajuan:
+        if i["status"] == "menunggu":
+            jumlah += 1
+    return jumlah
+
+
+# -tampilan-
+def garis():
+    print("+" + "-" * lebar + "+")
+
+
+# -tampilan-
+def judul(teks):
+    garis()
+    print("|" + teks.center(lebar) + "|")
+    garis()
+
+
+# -tampilan-
+def baris(teks):
+    print("| " + teks.ljust(lebar - 2) + " |")
+
+
+# -tampilan-
 def tampilEkskul():
-    print("-" * 60)
-    print("No  Ekskul           Biaya     Hari      Sisa kuota")
-    print("-" * 60)
+    judul("DAFTAR EKSKUL")
+    baris("No".ljust(4) + "Ekskul".ljust(16) + "Biaya".ljust(10) + "Hari".ljust(10) + "Sisa")
+    garis()
     nomor = 1
     for i in daftarEkskul:
         sisa = i[2] - hitungPeserta(i[0])
-        print(str(nomor).ljust(3), i[0].ljust(15), str(i[1]).ljust(9), i[3].ljust(9), sisa)
+        baris(str(nomor).ljust(4) + i[0].ljust(16) + str(i[1]).ljust(10) + i[3].ljust(10) + str(sisa))
         nomor += 1
-    print("Biaya admin Rp", biayaAdmin, "| maksimal", maksEkskul, "ekskul per siswa")
+    garis()
+    baris("Biaya admin Rp " + str(biayaAdmin) + " | maks " + str(maksEkskul) + " ekskul")
+    baris("Diskon: 2 ekskul = 10%, 3 ekskul = 15%")
+    garis()
 
 
+# -tampilan-
 def lihatPeserta():
     if len(daftarEkskul) == 0:
         print("Belum ada ekskul")
         return
+
+    judul("PESERTA PER EKSKUL")
     for i in daftarEkskul:
-        print()
-        print(i[0], "(", hitungPeserta(i[0]), "/", i[2], ")")
+        baris(i[0] + " (" + str(hitungPeserta(i[0])) + "/" + str(i[2]) + ")")
         ada = False
-        for nis in siswa:
-            if i[0] in siswa[nis]["ekskul"]:
-                print("  -", siswa[nis]["nama"], "| kelas", siswa[nis]["kelas"], "| masuk", siswa[nis]["ekskul"][i[0]])
+        for j in siswa:
+            if i[0] in siswa[j]["ekskul"]:
+                baris("  - " + siswa[j]["nama"].ljust(20) + " kelas " + str(siswa[j]["kelas"]) + "  " + siswa[j]["ekskul"][i[0]])
                 ada = True
         if not ada:
-            print("  belum ada peserta")
+            baris("  belum ada peserta")
+        baris("")
+    garis()
 
 
 # - LOGIN -
+# -tampilan-
+logo = [
+    "",
+    r"   _____ __  __                              ",
+    r"  / ____|  \/  |   /\                        ",
+    r" | (___ | \  / |  /  \                       ",
+    r"  \___ \| |\/| | / /\ \                      ",
+    r"  ____) | |  | |/ ____ \                     ",
+    r" |_____/|_|__|_/_/    \_\____   ____   _____ ",
+    r"     /\   |  _ \ \   / /  __ \ / __ \ / ____|",
+    r"    /  \  | |_) \ \_/ /| |  | | |  | | (___  ",
+    r"   / /\ \ |  _ < \   / | |  | | |  | |\___ \ ",
+    r"  / ____ \| |_) | | |  | |__| | |__| |____) |",
+    r" /_/    \_\____/  |_|  |_____/ \____/|_____/ ",
+    "",
+]
+
+
+# -tampilan-
+def tampilLogo():
+    garis()
+    for i in logo:
+        baris(i.center(lebar - 2))
+    baris("Sistem Pendaftaran Ekstrakurikuler".center(lebar - 2))
+    garis()
+
+
 def login():
     while True:
         print()
-        print("- PENDAFTARAN EKSKUL SMA ABYDOS -")
-        print("1. Admin")
-        print("2. User")
-        print("0. Keluar")
+        tampilLogo()
+        baris("1. Admin")
+        baris("2. User")
+        baris("0. Keluar")
+        garis()
         pilih = cekAngka("Login sebagai: ", 0, 2)
 
         if pilih == 1:
@@ -123,18 +215,18 @@ def login():
 
 # - ADMIN -
 def tambahEkskul():
-    nama = inputTeks("Nama ekskul: ")
+    nama = inputTeks("Nama ekskul: ", 15)
     for i in daftarEkskul:
         if i[0].lower() == nama.lower():
             print("Ekskul itu sudah ada")
             return
 
     biaya = cekAngka("Biaya per bulan (1000 - 1000000): ", 1000, 1000000)
-    kuota = cekAngka("Kuota (1 - 50): ", 1, 50)
+    kuota = cekAngka("Kuota (1 - 30): ", 1, 30)
 
     nomor = 1
-    for h in hariList:
-        print(nomor, h)
+    for i in hariList:
+        print(nomor, i)
         nomor += 1
     pilihHari = cekAngka("Pilih hari: ", 1, len(hariList))
 
@@ -146,28 +238,85 @@ def ubahEkskul():
     if len(daftarEkskul) == 0:
         print("Belum ada ekskul")
         return
+
     tampilEkskul()
     nomor = cekAngka("Nomor ekskul yang diubah (0 = batal): ", 0, len(daftarEkskul))
     if nomor == 0:
         return
 
-    lama = daftarEkskul[nomor - 1]
-    pesertaSekarang = hitungPeserta(lama[0])
-    batasBawah = pesertaSekarang
-    if batasBawah < 1:
-        batasBawah = 1
+    while True:
+        data = daftarEkskul[nomor - 1]
+        pesertaSekarang = hitungPeserta(data[0])
 
-    biayaBaru = cekAngka("Biaya baru (1000 - 1000000): ", 1000, 1000000)
-    kuotaBaru = cekAngka("Kuota baru (minimal " + str(batasBawah) + "): ", batasBawah, 50)
+        # -tampilan-
+        print()
+        judul("UBAH EKSKUL: " + data[0])
+        baris("1. Nama  : " + data[0])
+        baris("2. Biaya : Rp " + str(data[1]))
+        baris("3. Kuota : " + str(data[2]) + " (peserta sekarang " + str(pesertaSekarang) + ")")
+        baris("4. Hari  : " + data[3])
+        baris("0. Selesai")
+        garis()
+        pilih = cekAngka("Pilih yang mau diubah: ", 0, 4)
 
-    daftarEkskul[nomor - 1] = (lama[0], biayaBaru, kuotaBaru, lama[3])
-    print("Data", lama[0], "berhasil diubah")
+        if pilih == 0:
+            break
+
+        elif pilih == 1:
+            namaBaru = inputTeks("Nama baru: ", 15)
+            kembar = False
+            for i in daftarEkskul:
+                if i[0].lower() == namaBaru.lower() and i[0] != data[0]:
+                    kembar = True
+
+            if namaBaru == data[0]:
+                print("Nama sama, tidak ada perubahan")
+            elif kembar:
+                print("Nama sudah dipakai ekskul lain")
+            else:
+                namaLama = data[0]
+                for nis in siswa:
+                    if namaLama in siswa[nis]["ekskul"]:
+                        siswa[nis]["ekskul"][namaBaru] = siswa[nis]["ekskul"][namaLama]
+                        del siswa[nis]["ekskul"][namaLama]
+                for i in riwayat:
+                    for j in range(len(i["ekskul"])):
+                        if i["ekskul"][j] == namaLama:
+                            i["ekskul"][j] = namaBaru
+                for i in pengajuan:
+                    if i["ekskul"] == namaLama:
+                        i["ekskul"] = namaBaru
+                daftarEkskul[nomor - 1] = (namaBaru, data[1], data[2], data[3])
+                print("Nama berhasil diubah")
+
+        elif pilih == 2:
+            biayaBaru = cekAngka("Biaya baru (1000 - 1000000): ", 1000, 1000000)
+            daftarEkskul[nomor - 1] = (data[0], biayaBaru, data[2], data[3])
+            print("Biaya berhasil diubah")
+
+        elif pilih == 3:
+            batasBawah = pesertaSekarang
+            if batasBawah < 1:
+                batasBawah = 1
+            kuotaBaru = cekAngka("Kuota baru (" + str(batasBawah) + " - 30): ", batasBawah, 30)
+            daftarEkskul[nomor - 1] = (data[0], data[1], kuotaBaru, data[3])
+            print("Kuota berhasil diubah")
+
+        else:
+            nomorHari = 1
+            for i in hariList:
+                print(nomorHari, i)
+                nomorHari += 1
+            pilihHari = cekAngka("Pilih hari: ", 1, len(hariList))
+            daftarEkskul[nomor - 1] = (data[0], data[1], data[2], hariList[pilihHari - 1])
+            print("Hari berhasil diubah")
 
 
 def hapusEkskul():
     if len(daftarEkskul) == 0:
         print("Belum ada ekskul")
         return
+
     tampilEkskul()
     nomor = cekAngka("Nomor ekskul yang dihapus (0 = batal): ", 0, len(daftarEkskul))
     if nomor == 0:
@@ -175,7 +324,7 @@ def hapusEkskul():
 
     nama = daftarEkskul[nomor - 1][0]
     if hitungPeserta(nama) > 0:
-        print(nama, "masih punya", hitungPeserta(nama), "peserta, batalkan dulu pesertanya")
+        print(nama, "masih punya", hitungPeserta(nama))
         return
 
     yakin = cekAngka("Yakin hapus " + nama + "? (1 = ya, 0 = tidak): ", 0, 1)
@@ -184,24 +333,26 @@ def hapusEkskul():
         print("Ekskul", nama, "dihapus")
 
 
+# -tampilan-
 def lihatSiswa():
     if len(siswa) == 0:
         print("Belum ada siswa terdaftar")
         return
-    print("NIS     Nama                 Kelas  Jumlah ekskul")
-    for nis in siswa:
-        print(nis, " ", siswa[nis]["nama"].ljust(20), str(siswa[nis]["kelas"]).ljust(6), len(siswa[nis]["ekskul"]))
+
+    judul("DAFTAR SISWA")
+    baris("NIS".ljust(7) + "Nama".ljust(22) + "Kelas".ljust(7) + "Ekskul")
+    garis()
+    for i in siswa:
+        baris(i.ljust(7) + siswa[i]["nama"].ljust(22) + str(siswa[i]["kelas"]).ljust(7) + str(len(siswa[i]["ekskul"])))
+    garis()
 
 
 def tambahSiswa():
-    nis = inputNis()
-    if nis in siswa:
-        print("NIS sudah terdaftar atas nama", siswa[nis]["nama"])
-        return
-    nama = inputTeks("Nama lengkap: ")
+    nama = inputTeks("Nama lengkap: ", 20)
     kelas = cekAngka("Kelas (10/11/12): ", 10, 12)
+    nis = buatNis()
     siswa[nis] = {"nama": nama, "kelas": kelas, "ekskul": {}}
-    print("Siswa", nama, "ditambahkan dengan 0 ekskul")
+    print("Siswa", nama, "ditambahkan dengan NIS", nis, "dan 0 ekskul")
 
 
 def hapusSiswa():
@@ -209,6 +360,7 @@ def hapusSiswa():
     if nis not in siswa:
         print("NIS tidak ditemukan")
         return
+
     nama = siswa[nis]["nama"]
     yakin = cekAngka("Yakin hapus " + nama + "? (1 = ya, 0 = tidak): ", 0, 1)
     if yakin == 1:
@@ -255,10 +407,13 @@ def analisisHimpunan():
         print("Minimal harus ada 2 ekskul")
         return
 
+    # -tampilan-
+    judul("ANALISIS HIMPUNAN PESERTA")
     nomor = 1
     for i in daftarEkskul:
-        print(nomor, i[0])
+        baris(str(nomor) + ". " + i[0])
         nomor += 1
+    garis()
 
     a = cekAngka("Ekskul pertama: ", 1, len(daftarEkskul))
     b = cekAngka("Ekskul kedua  : ", 1, len(daftarEkskul))
@@ -277,6 +432,7 @@ def analisisHimpunan():
         if namaB in siswa[i]["ekskul"]:
             himpunanB.add(i)
 
+    print()
     print("Peserta", namaA, ":", namaDariHimpunan(himpunanA))
     print("Peserta", namaB, ":", namaDariHimpunan(himpunanB))
     print("Ikut keduanya (irisan)     :", namaDariHimpunan(himpunanA & himpunanB))
@@ -288,34 +444,32 @@ def analisisHimpunan():
 def statistik():
     totalPeserta = 0
     totalKuota = 0
-    print("Grafik jumlah peserta:")
+
+    # -tampilan-
+    judul("GRAFIK JUMLAH PESERTA")
     for i in daftarEkskul:
         jumlah = hitungPeserta(i[0])
         totalPeserta += jumlah
         totalKuota += i[2]
-        print(i[0].ljust(15), "|", end=" ")
+        batang = ""
         for j in range(jumlah):
-            print("#", end="")
-        print(" ", jumlah)
+            batang += "#"
+        baris(i[0].ljust(16) + "| " + batang + " " + str(jumlah))
+    garis()
 
+    # -tampilan-
     print()
-    print("Jumlah ekskul    :", len(daftarEkskul))
-    print("Jumlah siswa     :", len(siswa))
-    print("Total pendaftaran:", totalPeserta)
-    print("Total kuota      :", totalKuota)
-
+    judul("STATISTIK")
+    baris("Jumlah ekskul     : " + str(len(daftarEkskul)))
+    baris("Jumlah siswa      : " + str(len(siswa)))
+    baris("Total pendaftaran : " + str(totalPeserta))
+    baris("Total kuota       : " + str(totalKuota))
     try:
-        print("Kuota terisi     :", round(totalPeserta / totalKuota * 100, 1), "%")
-        print("Rata-rata ekskul per siswa:", round(totalPeserta / len(siswa), 2))
+        baris("Kuota terisi      : " + str(round(totalPeserta / totalKuota * 100, 1)) + " %")
+        baris("Rata-rata ekskul per siswa : " + str(round(totalPeserta / len(siswa), 2)))
     except ZeroDivisionError:
-        print("Data belum cukup, persentase dan rata-rata belum bisa dihitung")
-
-    print()
-    for i in daftarEkskul:
-        jumlah = hitungPeserta(i[0])
-        kelompok = jumlah // 3
-        sisa = jumlah % 3
-        print(i[0], ":", kelompok, "kelompok, sisa", sisa, "orang")
+        baris("Data belum cukup untuk persentase dan rata-rata")
+    garis()
 
 
 def lihatRiwayat():
@@ -325,37 +479,110 @@ def lihatRiwayat():
 
     totalCash = 0
     totalQris = 0
+
+    # -tampilan-
+    judul("RIWAYAT PEMBAYARAN")
     for i in riwayat:
-        print(i["tanggal"], "|", i["nama"], "(", i["nis"], ") |", ", ".join(i["ekskul"]), "|", i["metode"], "| Rp", i["total"])
+        baris(i["tanggal"] + " | " + i["metode"] + " | Rp " + str(i["total"]))
+        baris("  " + i["nama"] + " (" + i["nis"] + ")")
+        baris("  " + ", ".join(i["ekskul"]))
+        baris("")
         if i["metode"] == "Cash":
             totalCash += i["total"]
         else:
             totalQris += i["total"]
+    garis()
+    baris("Jumlah transaksi : " + str(len(riwayat)))
+    baris("Pemasukan Cash   : Rp " + str(totalCash))
+    baris("Pemasukan QRIS   : Rp " + str(totalQris))
+    baris("Total pemasukan  : Rp " + str(totalCash + totalQris))
+    garis()
 
-    print("Jumlah transaksi :", len(riwayat))
-    print("Pemasukan Cash   : Rp", totalCash)
-    print("Pemasukan QRIS   : Rp", totalQris)
-    print("Total pemasukan  : Rp", totalCash + totalQris)
+
+def notifikasiPembatalan():
+    while True:
+        daftarMenunggu = []
+        for i in pengajuan:
+            if i["status"] == "menunggu":
+                daftarMenunggu.append(i)
+
+        if len(daftarMenunggu) == 0:
+            print("Tidak ada pengajuan pembatalan yang menunggu")
+            return
+
+        # -tampilan-
+        judul("PENGAJUAN PEMBATALAN EKSKUL")
+        nomor = 1
+        for i in daftarMenunggu:
+            baris(str(nomor) + ". " + i["nama"] + " (" + i["nis"] + ")")
+            baris("   ingin batal : " + i["ekskul"])
+            baris("   diajukan    : " + i["tanggal"])
+            baris("")
+            nomor += 1
+        garis()
+
+        pilih = cekAngka("Pilih nomor pengajuan (0 = kembali): ", 0, len(daftarMenunggu))
+        if pilih == 0:
+            return
+
+        data = daftarMenunggu[pilih - 1]
+        print("1. Setujui")
+        print("2. Tolak")
+        print("0. Kembali")
+        aksi = cekAngka("Pilihan: ", 0, 2)
+
+        if aksi == 1:
+            if data["nis"] in siswa and data["ekskul"] in siswa[data["nis"]]["ekskul"]:
+                del siswa[data["nis"]]["ekskul"][data["ekskul"]]
+                data["status"] = "disetujui"
+                print("Pembatalan", data["ekskul"], "untuk", data["nama"], "disetujui")
+            else:
+                data["status"] = "ditutup"
+                print("Data siswa atau ekskul sudah tidak ada, pengajuan ditutup")
+        elif aksi == 2:
+            data["status"] = "ditolak"
+            print("Pengajuan ditolak")
 
 
 def menuAdmin():
     while True:
+        menunggu = jumlahMenunggu()
+        batas = 12
+        if menunggu > 0:
+            batas = 13
+
+        # -tampilan-
         print()
-        print("- MENU ADMIN -")
-        print("1. Lihat daftar ekskul")
-        print("2. Tambah ekskul")
-        print("3. Ubah ekskul")
-        print("4. Hapus ekskul")
-        print("5. Lihat semua siswa")
-        print("6. Tambah siswa")
-        print("7. Hapus siswa")
-        print("8. Batalkan ekskul siswa")
-        print("9. Lihat peserta per ekskul")
-        print("10. Analisis himpunan peserta")
-        print("11. Statistik")
-        print("12. Riwayat pembayaran")
-        print("0. Logout")
-        pilihan = cekAngka("Pilih menu: ", 0, 12)
+        daftarMenu = [
+            "1. Lihat daftar ekskul",
+            "2. Tambah ekskul",
+            "3. Ubah ekskul",
+            "4. Hapus ekskul",
+            "5. Lihat semua siswa",
+            "6. Tambah siswa",
+            "7. Hapus siswa",
+            "8. Batalkan ekskul siswa",
+            "9. Lihat peserta per ekskul",
+            "10. Analisis himpunan peserta",
+            "11. Grafik dan statistik",
+            "12. Riwayat pembayaran",
+        ]
+        if menunggu > 0:
+            daftarMenu.append("13. Notifikasi pembatalan (" + str(menunggu) + ")")
+            daftarMenu.append("0. Logout")
+
+        separuh = (len(daftarMenu) + 1) // 2
+        judul("MENU ADMIN")
+        for i in range(separuh):
+            kiri = daftarMenu[i]
+            kanan = ""
+            if i + separuh < len(daftarMenu):
+                kanan = daftarMenu[i + separuh]
+            baris(kiri.ljust(28) + kanan)
+        if menunggu == 0:
+            baris("0. Logout")
+        garis()
+        pilihan = cekAngka("Pilih menu: ", 0, batas)
         print()
 
         if pilihan == 1:
@@ -382,6 +609,8 @@ def menuAdmin():
             statistik()
         elif pilihan == 12:
             lihatRiwayat()
+        elif pilihan == 13:
+            notifikasiPembatalan()
         else:
             print("Logout berhasil")
             break
@@ -389,11 +618,14 @@ def menuAdmin():
 
 # - USER -
 def bayar(total):
+    # -tampilan-
     print()
-    print("Total yang harus dibayar: Rp", total)
-    print("1. Cash")
-    print("2. QRIS")
-    print("0. Batal")
+    judul("PEMBAYARAN")
+    baris("Total yang harus dibayar: Rp " + str(total))
+    baris("1. Cash")
+    baris("2. QRIS (nominal harus pas)")
+    baris("0. Batal")
+    garis()
     metode = cekAngka("Metode pembayaran: ", 0, 2)
 
     if metode == 0:
@@ -427,16 +659,32 @@ def daftar():
         print("Belum ada ekskul yang dibuka")
         return
 
-    nis = inputNis()
-    if nis in siswa:
+    # -tampilan-
+    judul("PENDAFTARAN EKSKUL")
+    baris("1. Siswa baru")
+    baris("2. Sudah punya NIS")
+    baris("0. Batal")
+    garis()
+    jenis = cekAngka("Pilih: ", 0, 2)
+    if jenis == 0:
+        return
+
+    if jenis == 2:
+        nis = inputNis()
+        if nis not in siswa:
+            print("NIS belum terdaftar, pilih siswa baru")
+            return
         nama = siswa[nis]["nama"]
         kelas = siswa[nis]["kelas"]
         ekskulLama = siswa[nis]["ekskul"]
         print("Halo,", nama)
     else:
-        nama = inputTeks("Nama lengkap: ")
+        nama = inputTeks("Nama lengkap: ", 20)
         kelas = cekAngka("Kelas (10/11/12): ", 10, 12)
-        ekskulLama = {}
+        nis = buatNis()
+        siswa[nis] = {"nama": nama, "kelas": kelas, "ekskul": {}}
+        ekskulLama = siswa[nis]["ekskul"]
+        print("Siswa baru berhasil terdaftar, NIS:", nis)
 
     if len(ekskulLama) >= maksEkskul:
         print("Kamu sudah ikut", maksEkskul, "ekskul, tidak bisa nambah lagi")
@@ -464,29 +712,33 @@ def daftar():
         print(namaEkskul, "ditambahkan")
 
     if len(pilihanBaru) == 0:
-        print("Tidak ada ekskul yang dipilih")
+        print("Tidak ada ekskul yang dipilih, NIS", nis, "tetap tersimpan")
         return
 
     totalBiaya = 0
-    print("Rincian biaya:")
     for i in pilihanBaru:
-        biaya = ambilBiaya(i)
-        totalBiaya += biaya
-        print("-", i, "Rp", biaya)
-    print("- Biaya admin Rp", biayaAdmin)
-    total = totalBiaya + biayaAdmin
+        totalBiaya += ambilBiaya(i)
+    persen, potongan, total = hitungBayar(totalBiaya, len(pilihanBaru))
+
+    # -tampilan-
+    print()
+    judul("RINCIAN BIAYA")
+    for i in pilihanBaru:
+        baris("- " + i.ljust(18) + "Rp " + str(ambilBiaya(i)))
+    baris("Subtotal".ljust(20) + "Rp " + str(totalBiaya))
+    baris(("Diskon " + str(persen) + "%").ljust(20) + "Rp -" + str(potongan))
+    baris("Biaya admin".ljust(20) + "Rp " + str(biayaAdmin))
+    baris("Total".ljust(20) + "Rp " + str(total))
+    garis()
 
     metode = bayar(total)
     if metode == "":
-        print("Pembayaran dibatalkan, pendaftaran tidak disimpan")
+        print("Pembayaran dibatalkan, ekskul tidak disimpan, NIS", nis, "tetap tersimpan")
         return
 
-    if nis not in siswa:
-        siswa[nis] = {"nama": nama, "kelas": kelas, "ekskul": {}}
-
     tanggalMasuk = tanggal()
-    for namaEkskul in pilihanBaru:
-        siswa[nis]["ekskul"][namaEkskul] = tanggalMasuk
+    for i in pilihanBaru:
+        siswa[nis]["ekskul"][i] = tanggalMasuk
 
     waktuBayar = tanggalJam()
     riwayat.append({
@@ -498,57 +750,120 @@ def daftar():
         "tanggal": waktuBayar,
     })
 
+    # -tampilan-
     print()
-    print("- BUKTI PENDAFTARAN -")
-    print("Tanggal :", waktuBayar)
-    print("NIS     :", nis)
-    print("Nama    :", nama)
-    print("Kelas   :", kelas)
+    judul("BUKTI PENDAFTARAN")
+    baris("Tanggal : " + waktuBayar)
+    baris("NIS     : " + nis)
+    baris("Nama    : " + nama)
+    baris("Kelas   : " + str(kelas))
+    garis()
     for i in pilihanBaru:
-        print("-", i, "Rp", ambilBiaya(i))
-    print("Biaya admin : Rp", biayaAdmin)
-    print("Metode      :", metode)
-    print("Total bayar : Rp", total)
+        baris("- " + i.ljust(18) + "Rp " + str(ambilBiaya(i)))
+    baris("Subtotal".ljust(20) + "Rp " + str(totalBiaya))
+    baris(("Diskon " + str(persen) + "%").ljust(20) + "Rp -" + str(potongan))
+    baris("Biaya admin".ljust(20) + "Rp " + str(biayaAdmin))
+    baris("Metode".ljust(20) + metode)
+    baris("Total bayar".ljust(20) + "Rp " + str(total))
+    garis()
+    baris("Simpan NIS kamu untuk pendaftaran berikutnya")
+    garis()
 
 
 def cekSiswa():
     nis = inputNis()
     try:
         data = siswa[nis]
-        print("Nama  :", data["nama"])
-        print("Kelas :", data["kelas"])
+
+        # -tampilan-
+        judul("DATA SISWA")
+        baris("NIS   : " + nis)
+        baris("Nama  : " + data["nama"])
+        baris("Kelas : " + str(data["kelas"]))
         if len(data["ekskul"]) == 0:
-            print("Belum ikut ekskul apa pun")
+            baris("Belum ikut ekskul apa pun")
         else:
-            print("Ekskul yang diikuti:")
+            baris("Ekskul yang diikuti:")
             for i in data["ekskul"]:
-                print("-", i, "| masuk", data["ekskul"][i])
+                baris("- " + i.ljust(16) + "masuk " + data["ekskul"][i])
+
+        adaPengajuan = False
+        for i in pengajuan:
+            if i["nis"] == nis:
+                if not adaPengajuan:
+                    baris("Pengajuan pembatalan:")
+                    adaPengajuan = True
+                baris("- " + i["ekskul"].ljust(16) + i["status"])
+        garis()
     except KeyError:
         print("NIS itu belum terdaftar")
 
 
 def riwayatSaya():
     nis = inputNis()
+
+    # -tampilan-
+    judul("RIWAYAT PEMBAYARAN " + nis)
     ada = False
     for i in riwayat:
         if i["nis"] == nis:
-            print(i["tanggal"], "|", ", ".join(i["ekskul"]), "|", i["metode"], "| Rp", i["total"])
+            baris(i["tanggal"] + " | " + i["metode"] + " | Rp " + str(i["total"]))
+            baris("  " + ", ".join(i["ekskul"]))
             ada = True
     if not ada:
-        print("Belum ada riwayat pembayaran untuk NIS itu")
+        baris("Belum ada riwayat pembayaran")
+    garis()
+
+
+def ajukanPembatalan():
+    nis = inputNis()
+    if nis not in siswa:
+        print("NIS belum terdaftar")
+        return
+    if len(siswa[nis]["ekskul"]) == 0:
+        print("Kamu belum ikut ekskul apa pun")
+        return
+
+    # -tampilan-
+    judul("AJUKAN PEMBATALAN EKSKUL")
+    daftarNama = list(siswa[nis]["ekskul"])
+    nomor = 1
+    for i in daftarNama:
+        baris(str(nomor) + ". " + i)
+        nomor += 1
+    garis()
+
+    pilih = cekAngka("Nomor yang mau dibatalkan (0 = batal): ", 0, len(daftarNama))
+    if pilih == 0:
+        return
+    namaEkskul = daftarNama[pilih - 1]
+
+    for i in pengajuan:
+        if i["nis"] == nis and i["ekskul"] == namaEkskul and i["status"] == "menunggu":
+            print("Pengajuan itu sudah ada dan masih menunggu persetujuan admin")
+            return
+
+    pengajuan.append({
+        "nis": nis,
+        "nama": siswa[nis]["nama"],
+        "ekskul": namaEkskul,
+        "tanggal": tanggalJam(),
+        "status": "menunggu",
+    })
+    print("Pengajuan pembatalan", namaEkskul, "terkirim, tunggu persetujuan admin")
 
 
 def menuUser():
     while True:
+        # -tampilan-
         print()
-        print("- MENU USER -")
-        print("1. Lihat daftar ekskul")
-        print("2. Daftar ekskul")
-        print("3. Lihat peserta per ekskul")
-        print("4. Cek ekskul saya")
-        print("5. Riwayat pembayaran saya")
-        print("0. Kembali ke login")
-        pilihan = cekAngka("Pilih menu: ", 0, 5)
+        judul("MENU USER")
+        baris("1. Lihat daftar ekskul          4. Cek ekskul saya")
+        baris("2. Daftar ekskul                5. Riwayat pembayaran saya")
+        baris("3. Lihat peserta per ekskul     6. Ajukan pembatalan ekskul")
+        baris("0. Kembali ke login")
+        garis()
+        pilihan = cekAngka("Pilih menu: ", 0, 6)
         print()
 
         if pilihan == 1:
@@ -561,6 +876,8 @@ def menuUser():
             cekSiswa()
         elif pilihan == 5:
             riwayatSaya()
+        elif pilihan == 6:
+            ajukanPembatalan()
         else:
             break
 

@@ -1,4 +1,3 @@
-#MODUL 6 TUPLE
 DAFTAR_EKSKUL = (
     ("Basket", 50000, 5, "Senin"),
     ("Futsal", 45000, 5, "Selasa"),
@@ -13,15 +12,10 @@ DAFTAR_EKSKUL = (
 MAKS_EKSKUL = 3         
 BIAYA_ADMIN = 10000
 
-#MODUL 7 : DICTIONARY
-database_ekskul = {}     # {"Basket": {"biaya":..., "kuota":..., "hari":..., "peserta":[nis,...]}}
-data_siswa = {}          # {"12345": {"nama":..., "kelas":..., "jurusan":..., "ekskul": set()}}
-riwayat_transaksi = []   # list berisi dictionary transaksi
+database_ekskul = {}    
+data_siswa = {}         
+riwayat_transaksi = []  
 
-
-# ===============================================================
-# MODUL 5 : FUNCTION - TAMPILAN DASAR
-# ===============================================================
 def garis(panjang=60, simbol="="):
     """Mencetak garis pembatas."""
     print(simbol * panjang)
@@ -39,9 +33,7 @@ def format_rupiah(angka):
     return "Rp " + f"{angka:,}".replace(",", ".")
 
 
-# ===============================================================
-# MODUL 7 : TRY-EXCEPT - VALIDASI INPUT
-# ===============================================================
+
 def input_angka(pesan, minimal, maksimal):
     """Meminta angka bulat dalam rentang tertentu sampai valid."""
     while True:
