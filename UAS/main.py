@@ -15,7 +15,7 @@ hariList = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
 
 biayaAdmin = 10000
 maksEkskul = 3
-passwordAdmin = "admin123"
+passwordAdmin = "adminganteng"
 lebar = 70
 nisTerakhir = 10005
 
@@ -138,10 +138,7 @@ def jumlahMenunggu():
 
 # -tampilan-
 def bersih():
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
+    os.system("clear")
 
 
 # -tampilan-
